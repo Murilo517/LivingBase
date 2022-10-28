@@ -2,86 +2,111 @@
 
 import { requestPost, infiniteRequest } from "./requests.js";
 
-const post = await requestPost();
-
-
-const renderPosts = async () => {
+async function renderPosts() {
   const ul = document.querySelector("ul");
 
+  const section = document.querySelector(".sectionPosts")
+
+  ul.innerHTML = "";
+
+  const post = await requestPost();
+
   post.news.forEach((element) => {
-    const li = document.createElement("li");
-    li.id = element.id;
-
-    const divPostText = document.createElement("div");
-    divPostText.classList.add("divPostText");
-
-    const imgUser = document.createElement("img");
-    imgUser.src = element.image;
-    imgUser.classList.add("imgPost");
-
-    const titlePost = document.createElement("h1");
-    titlePost.innerText = element.title;
-
-    const descriptionPost = document.createElement("p");
-    descriptionPost.innerText = element.description;
-
-    const acess = document.createElement("button");
-    acess.innerText = "Acessar Conteúdo";
-    acess.classList.add("acess");
-
-    acess.addEventListener("click", () => {
-      localStorage.setItem("idPost", JSON.stringify(element.id));
-
-      window.location.replace(`pages/post/index.html`);
-    });
-
-    divPostText.append(titlePost, descriptionPost, acess);
-
-    li.append(imgUser, divPostText);
-
-    ul.append(li);
+    createPost(element);
   });
-};
 
+  if(JSON.parse(localStorage.getItem("category"))){
+    
+    
+    const Buttons = document.querySelectorAll(".btnCategory")
+
+        let arr = Array.from(Buttons)
+
+       const btnFilter = arr.filter(botao=> botao.innerText=== JSON.parse(localStorage.getItem("category")))
+       
+
+       btnFilter[0].click()       
+    
+  }
+
+  const divObserver = document.createElement("div");
+  divObserver.classList.add("divObserver");
+   section.append(divObserver);
+
+  observer.observe(divObserver);
+}
+
+await eventFilter()
 renderPosts();
 
-export { renderPosts };
+
+async function createPost(element) {
+  const ul = document.querySelector("ul");
+
+  const li = document.createElement("li");
+  li.id = element.id;
+
+  const divPostText = document.createElement("div");
+  divPostText.classList.add("divPostText");
+
+  const imgUser = document.createElement("img");
+  imgUser.src = element.image;
+  imgUser.classList.add("imgPost");
+
+  const titlePost = document.createElement("h1");
+  titlePost.innerText = element.title;
+
+  const descriptionPost = document.createElement("p");
+  descriptionPost.innerText = element.description;
+
+  const category = document.createElement("span");
+  category.innerText = element.category;
+
+  const acess = document.createElement("button");
+  acess.innerText = "Acessar Conteúdo";
+  acess.classList.add("acess");
+
+  acess.addEventListener("click", () => {
+    localStorage.setItem("idPost", JSON.stringify(element.id));
+
+    window.location.replace(`pages/post/index.html`);
+
+  });
+  
+
+  divPostText.append(titlePost, descriptionPost, category, acess);
+
+  li.append(imgUser, divPostText);
+
+  ul.append(li);
+}
+
+export { renderPosts,createPost };
 
 import { eventFilter } from "./filterBtn.js";
 
-// eventFilter()
 
 
+let page = 1;
 
+async function renderInfinite() {
 
-
-
-
-
-
-
-
-
-let page = 1
-
-
-async function infinitePost() {
   const dataPost = await infiniteRequest(page);
 
-  if (dataPost.nextPage) {
+  if (page<3) {
     dataPost.news.forEach((element) => {
-      renderPosts(element);
+      createPost(element);
     });
-   page++
-
+    page++;
   }
-
 }
 
-const ul = document.querySelector("ul");
+const observer = new IntersectionObserver((entries) => {
 
-const observer = new IntersectionObserver((teste) => {
-//   infinitePost();
+
+  if (entries.some((entry) => entry.isIntersecting)) {
+    renderInfinite();
+  }
 });
 
-observer.observe(ul);
+

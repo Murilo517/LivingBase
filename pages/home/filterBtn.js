@@ -1,42 +1,53 @@
-import {renderPosts} from "./index.js"
+import {createPost, renderPosts} from "./index.js"
+import { requestPost } from "./requests.js";
 
 
 
 
-function eventFilter() {
+async function eventFilter() {
     const filterButtons = document.querySelectorAll(".btnCategory");
     const ul = document.querySelector("ul");
   
     filterButtons.forEach((button) => {
         
-      button.addEventListener("click", () => {
+      button.addEventListener("click", async () => {
 
         ul.innerHTML = "";
   
         const filter = button.innerText;
   
         if (filter === "Todos") {
-
-          renderPosts();
+          
+         renderPosts()
         }
-        // const filteredPosts = filterPost(filter);
-  
-        // createCard(filteredPosts);
+
+         const filteredPost = await filterPost(filter)
+          
+         filteredPost.forEach(element =>{
+         
+          createPost(element)
+
+         })
+ 
       });
     });
   }
   
-  function filterPost(text) {
+ async function filterPost(text) {
 
-    let teste = renderPosts()
+    let postApi = await requestPost()
 
-    const post = products.filter((products) =>
-      products.category.includes(text)
+
+    const filteredPost =  postApi.news.filter((post) =>
+   
+      post.category === text
     );
-  
-    return post
+
+    return filteredPost
   }
   
 
 
 export {eventFilter}
+
+

@@ -45,6 +45,7 @@ let newPost = await chosenPost()
 
     const divContent = document.createElement("div")
     divContent.classList.add("divContent")
+    
 
     const content = document.createElement("p")
     content.innerText = newPost.content
@@ -56,9 +57,35 @@ let newPost = await chosenPost()
 
 
 
-
-
-
 }
 
 renderPostID()
+
+
+function buttonCategories(){
+
+    // let newPost = await chosenPost()
+
+let btn = document.querySelectorAll(".btnCategory")
+
+
+btn.forEach(element => {
+
+    element.addEventListener("click",(event)=>{
+
+
+        let teste = element.innerText
+
+        localStorage.setItem("category", JSON.stringify(teste))
+
+        window.location.replace(`/index.html`)
+    
+    })
+
+
+    
+});
+
+}
+
+buttonCategories()

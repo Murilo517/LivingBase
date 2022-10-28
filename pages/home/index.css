@@ -36,7 +36,17 @@ margin-right: 132px;
   margin-top: 74px;
   display: flex;
   gap: 20px;
+  overflow-x: scroll;
+  width: 95%;
 }
+
+
+.divButtons::-webkit-scrollbar-thumb{
+  background-color: blue;
+}
+
+
+
 
 button {
   width: 100px;
@@ -61,8 +71,8 @@ button:hover {
   background: #087f5b;
   color: #f8f9fa;
   cursor: pointer;
+  border: none;
 }
-
 
 .flexTop{
 
@@ -81,7 +91,7 @@ button:hover {
 ul{
   display: flex;
   flex-wrap: wrap;
-  gap: 24px;
+  gap: 45px;
   margin-top: 46px;
   
 } 
@@ -93,6 +103,8 @@ li{
   display: flex;
   flex-direction: column;
   gap: 24px;
+  max-width: 550px;
+  max-height: 360px;
 
 
 }
@@ -110,3 +122,27 @@ li{
     display: flex;
     flex-direction: column;
   }
+
+  .acess{
+
+    all: unset;
+    cursor: pointer;
+    color: #364FC7;
+    font-family: 'IBM Plex Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+    width: 142px;
+    height: 24px;
+    
+    }
+
+
+    .divObserver{
+        /* position: absolute;
+        bottom: 0;
+     */
+     width: 100%;
+     height: 100px;
+    }

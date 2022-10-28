@@ -5,7 +5,7 @@ const myHeaders = {
 const requestPost = async () => {
   try {
     const request = await fetch(
-      "https://m2-api-living.herokuapp.com/news?page=1",
+      "https://m2-api-living.herokuapp.com/news?page=0",
       {
         method: "GET",
         headers: myHeaders,
