@@ -18,7 +18,7 @@ async function eventFilter() {
   
         if (filter === "Todos") {
           
-         renderPosts()
+         await renderPosts(requestPost())
         }
 
          const filteredPost = await filterPost(filter)
