@@ -15,19 +15,19 @@ async function renderPosts() {
     createPost(element);
   });
 
-  if(JSON.parse(localStorage.getItem("category"))){
+  // if(JSON.parse(localStorage.getItem("category"))){
     
     
-    const Buttons = document.querySelectorAll(".btnCategory")
+  //   const Buttons = document.querySelectorAll(".btnCategory")
 
-        let arr = Array.from(Buttons)
+  //       let arr = Array.from(Buttons)
 
-       const btnFilter = arr.filter(botao=> botao.innerText=== JSON.parse(localStorage.getItem("category")))
+  //      const btnFilter = arr.filter(botao=> botao.innerText=== JSON.parse(localStorage.getItem("category")))
        
 
-       btnFilter[0].click()       
+  //      btnFilter[0].click()       
     
-  }
+  // }
 
   const divObserver = document.createElement("div");
   divObserver.classList.add("divObserver");
