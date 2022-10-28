@@ -43,6 +43,7 @@ margin-right: 132px;
 
 .divButtons::-webkit-scrollbar-thumb{
   background-color: blue;
+  background: blue;
 }
 
 
